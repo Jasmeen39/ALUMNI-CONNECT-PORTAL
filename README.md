@@ -23,6 +23,5 @@ A web-based platform built to connect alumni with students, faculty, and the ins
 | **Backend**  | Node.js, Express.js    |
 | **Database** | MySQL                  |
 | **Auth**     | bcrypt, JWT            |
-| **Hosting**  | Render / Railway / Vercel (Optional) |
 
 ---
