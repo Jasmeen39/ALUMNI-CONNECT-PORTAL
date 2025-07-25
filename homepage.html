@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Connect - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --maroon: #800000;
+            --light-maroon: #a04040;
+            --dark-maroon: #600000;
+            --gray: #f5f5f5;
+            --dark-gray: #e0e0e0;
+            --text: #333333;
+            --light-text: #777777;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray);
+            color: var(--text);
+            padding-top: 70px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--maroon);
+            color: white;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .search-bar {
+            position: relative;
+            width: 400px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 8px 15px 8px 40px;
+            border-radius: 20px;
+            border: none;
+            background-color: rgba(255,255,255,0.9);
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-text);
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .profile-pic {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--maroon);
+            font-weight: bold;
+            overflow: hidden;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: var(--text);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-content a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--dark-gray);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        /* Left Sidebar */
+        .left-sidebar {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+        
+        .sidebar-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar-card h2 {
+            color: var(--maroon);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--dark-gray);
+        }
+        
+        /* Events */
+        .event-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--dark-gray);
+        }
+        
+        .event-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .event-item h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        
+        .event-meta {
+            display: flex;
+            align-items: center;
+            color: var(--light-text);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+        
+        .event-meta i {
+            margin-right: 8px;
+        }
+        
+        .event-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .btn {
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--maroon);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-maroon);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--light-text);
+            color: var(--light-text);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--maroon);
+            color: var(--maroon);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        /* Create Post */
+        .create-post {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .post-input-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .post-input {
+            flex: 1;
+        }
+        
+        .post-input textarea {
+            width: 100%;
+            border: 1px solid var(--dark-gray);
+            border-radius: 8px;
+            padding: 12px 15px;
+            resize: none;
+            min-height: 80px;
+            font-size: 0.95rem;
+        }
+        
+        .post-input textarea:focus {
+            outline: none;
+            border-color: var(--maroon);
+        }
+        
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .post-options {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .post-option {
+            display: flex;
+            align-items: center;
+            color: var(--light-text);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .post-option i {
+            margin-right: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .post-btn {
+            background-color: var(--maroon);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .post-btn:hover {
+            background-color: var(--dark-maroon);
+        }
+        
+        /* Posts */
+        .post {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .post-user {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .post-user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .post-user-info h4 {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .post-user-info p {
+            color: var(--light-text);
+            font-size: 0.85rem;
+        }
+        
+        .post-menu {
+            color: var(--light-text);
+            cursor: pointer;
+        }
+        
+        .post-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .post-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            max-height: 400px;
+            object-fit: contain;
+        }
+        
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border-top: 1px solid var(--dark-gray);
+            border-bottom: 1px solid var(--dark-gray);
+            color: var(--light-text);
+            font-size: 0.85rem;
+        }
+        
+        .post-actions-container {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .post-action {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            cursor: pointer;
+            color: var(--light-text);
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        .post-action i {
+            margin-right: 5px;
+        }
+        
+        .post-action:hover {
+            color: var(--maroon);
+        }
+        
+        /* Right Sidebar */
+        .right-sidebar {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+        
+        /* Friends List */
+        .friend-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--dark-gray);
+        }
+        
+        .friend-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .friend-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .friend-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .friend-details h4 {
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+        
+        .friend-status {
+            font-size: 0.8rem;
+        }
+        
+        .online {
+            color: #4caf50;
+        }
+        
+        .offline {
+            color: var(--light-text);
+        }
+        
+        .friend-chat {
+            color: var(--light-text);
+            cursor: pointer;
+        }
+        
+        .friend-chat:hover {
+            color: var(--maroon);
+        }
+        
+        .view-all-btn {
+            display: block;
+            text-align: center;
+            padding: 8px;
+            background-color: var(--dark-gray);
+            color: var(--text);
+            border-radius: 5px;
+            margin-top: 15px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .view-all-btn:hover {
+            background-color: #d0d0d0;
+        }
+        
+        /* Messaging Panel */
+        .messaging-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background-color: var(--white);
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .messaging-panel.active {
+            right: 0;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--dark-gray);
+            background-color: var(--maroon);
+            color: white;
+        }
+        
+        .panel-header h3 {
+            font-size: 1.1rem;
+        }
+        
+        .close-panel {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .conversations {
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+        
+        /* Notification Flyout */
+        .notification-flyout {
+            position: fixed;
+            top: 70px;
+            left: -300px;
+            width: 300px;
+            height: calc(100vh - 70px);
+            background-color: var(--white);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .notification-flyout.active {
+            left: 0;
+        }
+        
+        .notification-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--dark-gray);
+            background-color: var(--maroon);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .notification-header h3 {
+            font-size: 1.1rem;
+        }
+        
+        .close-notifications {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .notification-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--dark-gray);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .notification-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .notification-content {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--light-text);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .left-sidebar, .right-sidebar {
+                position: static;
+                flex: 1;
+            }
+            
+            .search-bar {
+                width: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo-text {
+                display: none;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="icon-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <img src="https://via.placeholder.com/150x40?text=IIITV-ICD" alt="Logo" class="logo">
+            
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search alumni...">
+            </div>
+        </div>
+        
+        <div class="header-icons">
+            <button class="icon-btn" onclick="toggleMessaging()">
+                <i class="fas fa-envelope"></i>
+            </button>
+            
+            <div class="dropdown">
+                <div class="profile-btn" onclick="toggleProfileDropdown()">
+                    <div class="profile-pic">
+                        <img src="https://via.placeholder.com/36" alt="Profile">
+                    </div>
+                </div>
+                
+                <div class="dropdown-content" id="profileDropdown">
+                    <a href="#"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="#"><i class="fas fa-edit"></i> Edit Profile</a>
+                    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Sidebar - Events -->
+        <aside class="left-sidebar">
+            <div class="sidebar-card">
+                <h2>Current Events</h2>
+                
+                <div class="event-item">
+                    <h3>Alumni Reunion 2023</h3>
+                    <div class="event-meta">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>June 15, 2023 | 6:00 PM</span>
+                    </div>
+                    <div class="event-meta">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>IIITV-ICD Campus</span>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary">RSVP</button>
+                        <button class="btn btn-outline">Details</button>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <h3>Career Fair</h3>
+                    <div class="event-meta">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>July 22, 2023 | 10:00 AM</span>
+                    </div>
+                    <div class="event-meta">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Virtual Event</span>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary">RSVP</button>
+                        <button class="btn btn-outline">Details</button>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <h3>Tech Conference</h3>
+                    <div class="event-meta">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>August 5, 2023 | 9:00 AM</span>
+                    </div>
+                    <div class="event-meta">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Bangalore Convention Center</span>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-primary">RSVP</button>
+                        <button class="btn btn-outline">Details</button>
+                    </div>
+                </div>
+                
+                <a href="#" class="view-all-btn">View All Events</a>
+            </div>
+            
+            <div class="sidebar-card">
+                <h2>Alumni Groups</h2>
+                <p>Connect with alumni from your batch or with similar interests.</p>
+                <a href="#" class="view-all-btn">Browse All Groups</a>
+            </div>
+        </aside>
+        
+        <!-- Main Content - Posts -->
+        <main class="main-content">
+            <!-- Create Post -->
+            <div class="create-post">
+                <div class="post-input-container">
+                    <img src="https://via.placeholder.com/50" alt="User" class="post-user-avatar">
+                    <div class="post-input">
+                        <textarea placeholder="Share an update with your alumni network..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="post-actions">
+                    <div class="post-options">
+                        <div class="post-option">
+                            <i class="far fa-image"></i>
+                            <span>Photo</span>
+                        </div>
+                        <div class="post-option">
+                            <i class="fas fa-video"></i>
+                            <span>Video</span>
+                        </div>
+                        <div class="post-option">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Event</span>
+                        </div>
+                    </div>
+                    
+                    <button class="post-btn">Post</button>
+                </div>
+            </div>
+            
+            <!-- Posts Feed -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-user">
+                        <img src="https://via.placeholder.com/50" alt="User" class="post-user-avatar">
+                        <div class="post-user-info">
+                            <h4>Jane Smith</h4>
+                            <p>Class of 2015 • 2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="post-menu">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                
+                <div class="post-content">
+                    <p>Just finished my latest project at Tech Solutions! So excited to share that our team has developed a new AI-powered tool that will revolutionize how alumni networks connect. Special thanks to my IIITV-ICD classmates who provided valuable feedback during development!</p>
+                    <img src="https://via.placeholder.com/600x300?text=Project+Screenshot" alt="Post Image" class="post-image">
+                </div>
+                
+                <div class="post-stats">
+                    <div class="post-stat">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>24 likes</span>
+                    </div>
+                    <div class="post-stat">
+                        <i class="far fa-comment"></i>
+                        <span>5 comments</span>
+                    </div>
+                </div>
+                
+                <div class="post-actions-container">
+                    <div class="post-action">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Like</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="far fa-comment"></i>
+                        <span>Comment</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-share"></i>
+                        <span>Share</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-user">
+                        <img src="https://via.placeholder.com/50" alt="User" class="post-user-avatar">
+                        <div class="post-user-info">
+                            <h4>John Doe</h4>
+                            <p>Class of 2018 • 5 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="post-menu">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                
+                <div class="post-content">
+                    <p>Has anyone used the new alumni engagement platform that was just released? Our company is considering implementing it and I'd love to hear experiences from fellow IIITV-ICD alumni who might have tried it.</p>
+                </div>
+                
+                <div class="post-stats">
+                    <div class="post-stat">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>12 likes</span>
+                    </div>
+                    <div class="post-stat">
+                        <i class="far fa-comment"></i>
+                        <span>8 comments</span>
+                    </div>
+                </div>
+                
+                <div class="post-actions-container">
+                    <div class="post-action">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Like</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="far fa-comment"></i>
+                        <span>Comment</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-share"></i>
+                        <span>Share</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-user">
+                        <img src="https://via.placeholder.com/50" alt="User" class="post-user-avatar">
+                        <div class="post-user-info">
+                            <h4>Alex Johnson</h4>
+                            <p>Class of 2020 • Yesterday</p>
+                        </div>
+                    </div>
+                    <div class="post-menu">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                
+                <div class="post-content">
+                    <p>Looking for recommendations on good mentorship programs for recent graduates. As someone who benefited greatly from alumni mentors when I graduated, I'd love to pay it forward but want to find the right structured program. Any suggestions from the IIITV-ICD community?</p>
+                    <img src="https://via.placeholder.com/600x200?text=Mentorship" alt="Post Image" class="post-image">
+                </div>
+                
+                <div class="post-stats">
+                    <div class="post-stat">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>35 likes</span>
+                    </div>
+                    <div class="post-stat">
+                        <i class="far fa-comment"></i>
+                        <span>15 comments</span>
+                    </div>
+                </div>
+                
+                <div class="post-actions-container">
+                    <div class="post-action">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Like</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="far fa-comment"></i>
+                        <span>Comment</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-share"></i>
+                        <span>Share</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Right Sidebar - Friends -->
+        <aside class="right-sidebar">
+            <div class="sidebar-card">
+                <h2>Alumni Connections</h2>
+                
+                <div class="friend-item">
+                    <div class="friend-info">
+                        <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                        <div class="friend-details">
+                            <h4>Sarah Williams</h4>
+                            <div class="friend-status online">Online</div>
+                        </div>
+                    </div>
+                    <div class="friend-chat">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                </div>
+                
+                <div class="friend-item">
+                    <div class="friend-info">
+                        <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                        <div class="friend-details">
+                            <h4>Mike Chen</h4>
+                            <div class="friend-status online">Online</div>
+                        </div>
+                    </div>
+                    <div class="friend-chat">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                </div>
+                
+                <div class="friend-item">
+                    <div class="friend-info">
+                        <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                        <div class="friend-details">
+                            <h4>Tanya Roberts</h4>
+                            <div class="friend-status offline">Offline</div>
+                        </div>
+                    </div>
+                    <div class="friend-chat">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                </div>
+                
+                <div class="friend-item">
+                    <div class="friend-info">
+                        <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                        <div class="friend-details">
+                            <h4>David Kim</h4>
+                            <div class="friend-status online">Online</div>
+                        </div>
+                    </div>
+                    <div class="friend-chat">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                </div>
+                
+                <div class="friend-item">
+                    <div class="friend-info">
+                        <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                        <div class="friend-details">
+                            <h4>Erica Johnson</h4>
+                            <div class="friend-status offline">Offline</div>
+                        </div>
+                    </div>
+                    <div class="friend-chat">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                </div>
+                
+                <a href="#" class="view-all-btn">View All Connections</a>
+            </div>
+            
+            <div class="sidebar-card">
+                <h2>Job Opportunities</h2>
+                <p>Companies specifically looking to hire IIITV-ICD alumni.</p>
+                <a href="#" class="view-all-btn">Browse Jobs</a>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- Messaging Panel -->
+    <div class="messaging-panel" id="messagingPanel">
+        <div class="panel-header">
+            <h3>Messages</h3>
+            <button class="close-panel" onclick="toggleMessaging()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="conversations">
+            <div class="friend-item">
+                <div class="friend-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                    <div class="friend-details">
+                        <h4>Sarah Williams</h4>
+                        <div class="friend-status online">Online</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="friend-item">
+                <div class="friend-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                    <div class="friend-details">
+                        <h4>Mike Chen</h4>
+                        <div class="friend-status online">Online</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="friend-item">
+                <div class="friend-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                    <div class="friend-details">
+                        <h4>Tanya Roberts</h4>
+                        <div class="friend-status">Last seen 2h ago</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="friend-item">
+                <div class="friend-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                    <div class="friend-details">
+                        <h4>David Kim</h4>
+                        <div class="friend-status online">Online</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="friend-item">
+                <div class="friend-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="friend-avatar">
+                    <div class="friend-details">
+                        <h4>Erica Johnson</h4>
+                        <div class="friend-status">Last seen yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleSidebar() {
+            // Implementation
+        }
+        
+        function toggleMessaging() {
+            // Implementation
+        }
+        
+        function toggleProfileDropdown() {
+            // Implementation
+        }
+    </script>
+</body>
+</html>

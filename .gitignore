@@ -1,0 +1,7 @@
+sql.txt
+
+.env
+
+node_modules/
+
+.next/*

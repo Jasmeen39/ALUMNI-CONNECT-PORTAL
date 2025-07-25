@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlumniConnect - Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        .bg-maroon {
+            background-color: #800000;
+        }
+        .text-maroon {
+            color: #800000;
+        }
+        .border-maroon {
+            border-color: #800000;
+        }
+        .hover-bg-maroon:hover {
+            background-color: #6b0000;
+        }
+        .profile-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gray-100 font-sans">
+    
+    <!-- Profile Popup Modal -->
+    <div id="profileModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg profile-shadow w-96 max-w-full mx-4">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-maroon">
+                    <span class="border-b-2 border-maroon pb-1">Alumni Profile</span>
+                </h2>
+                <button id="closeProfile" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Profile Content -->
+            <div class="flex flex-col items-center mb-6">
+                <div class="relative mb-4">
+                    <div class="w-32 h-32 rounded-full border-4 border-maroon bg-gray-200 flex items-center justify-center text-gray-400">
+                        <!-- Empty profile picture container -->
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-800">Jasmeen Kaur</h3>
+                <p class="text-gray-600 mb-2">2023</p>
+                <p class="text-sm text-gray-500">Computer Science & Engineering</p>
+            </div>
+            
+            <!-- Profile Details -->
+            <div class="space-y-4 mb-6">
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                    <div class="bg-gray-200 p-2 rounded-full mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-maroon" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Email</p>
+                        <p class="text-gray-800">Jasmeen@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                    <div class="bg-gray-200 p-2 rounded-full mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-maroon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                            <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Current Position</p>
+                        <p class="text-gray-800">Something</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-col space-y-3">
+                <button class="w-full bg-maroon text-white py-2 px-4 rounded-lg hover-bg-maroon transition duration-200">
+                    Edit Profile
+                </button>
+                <button class="w-full text-maroon font-medium py-2 px-4 rounded-lg hover:bg-gray-100 transition duration-200">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('closeProfile').addEventListener('click', function() {
+            document.getElementById('profileModal').classList.add('hidden');
+        });
+        
+        document.getElementById('profileModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

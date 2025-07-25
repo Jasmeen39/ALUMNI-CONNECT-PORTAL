@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Connect - Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --maroon: #800000;
+            --light-maroon: #a04040;
+            --dark-maroon: #600000;
+            --gold: #FFD700;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+        }
+        
+        /* Header */
+        .header {
+            background-color: var(--maroon);
+            color: var(--white);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 30px;
+        }
+        
+        .logo-text {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .icon-btn {
+            color: var(--white);
+            font-size: 1.2rem;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .notification-title {
+            font-size: 1.5rem;
+            color: var(--maroon);
+            font-weight: 600;
+        }
+        
+        .mark-all-read {
+            color: var(--maroon);
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .mark-all-read:hover {
+            text-decoration: underline;
+        }
+        
+        /* Notification List */
+        .notification-list {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .notification-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-item:hover {
+            background-color: rgba(128, 0, 0, 0.05);
+        }
+        
+        .notification-item.unread {
+            background-color: rgba(128, 0, 0, 0.03);
+        }
+        
+        .notification-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--medium-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .notification-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-text {
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .notification-text strong {
+            color: var(--maroon);
+        }
+        
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--light-maroon);
+        }
+        
+        .notification-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .action-btn {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        
+        .accept-btn {
+            background-color: var(--maroon);
+            color: var(--white);
+            border: none;
+        }
+        
+        .decline-btn {
+            background-color: transparent;
+            border: 1px solid var(--medium-gray);
+            color: var(--dark-gray);
+        }
+        
+        .unread-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--maroon);
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--light-maroon);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--medium-gray);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+            }
+            
+            .notification-item {
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://via.placeholder.com/30x30?text=ICD" alt="Logo">
+            <span class="logo-text">Alumni Connect</span>
+        </div>
+        <div class="header-actions">
+            <div class="icon-btn">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="icon-btn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="icon-btn">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <div class="notification-header">
+            <h1 class="notification-title">Notifications</h1>
+            <div class="mark-all-read">Mark all as read</div>
+        </div>
+        
+        <div class="notification-list">
+            <!-- Unread Notification -->
+            <div class="notification-item unread">
+                <div class="notification-avatar">
+                    <img src="https://via.placeholder.com/50?text=SW" alt="Sarah">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Sarah Williams</strong> (Class of 2015) sent you a connection request
+                    </div>
+                    <div class="notification-time">10 minutes ago</div>
+                    <div class="notification-actions">
+                        <button class="action-btn accept-btn">Accept</button>
+                        <button class="action-btn decline-btn">Decline</button>
+                    </div>
+                </div>
+                <div class="unread-dot"></div>
+            </div>
+            
+            <!-- Unread Notification -->
+            <div class="notification-item unread">
+                <div class="notification-avatar">
+                    <img src="https://via.placeholder.com/50?text=AN" alt="Alumni Network">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        New event: <strong>Annual Alumni Reunion 2023</strong> is now open for registration
+                    </div>
+                    <div class="notification-time">1 hour ago</div>
+                </div>
+                <div class="unread-dot"></div>
+            </div>
+            
+            <!-- Unread Notification -->
+            <div class="notification-item unread">
+                <div class="notification-avatar">
+                    <img src="https://via.placeholder.com/50?text=MC" alt="Mike">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Mike Chen</strong> commented on your post: "Great to see our alumni doing well!"
+                    </div>
+                    <div class="notification-time">3 hours ago</div>
+                </div>
+                <div class="unread-dot"></div>
+            </div>
+            
+            <!-- Read Notification -->
+            <div class="notification-item">
+                <div class="notification-avatar">
+                    <img src="https://via.placeholder.com/50?text=DK" alt="David">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>David Kim</strong> liked your post about the recent hackathon
+                    </div>
+                    <div class="notification-time">Yesterday</div>
+                </div>
+            </div>
+            
+            <!-- Read Notification -->
+            <div class="notification-item">
+                <div class="notification-avatar">
+                    <img src="https://via.placeholder.com/50?text=AN" alt="Alumni Network">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        Reminder: Your alumni membership renewal is due in <strong>7 days</strong>
+                    </div>
+                    <div class="notification-time">2 days ago</div>
+                </div>
+            </div>
+            
+            <!-- Read Notification -->
+            <div class="notification-item">
+                <div class="notification-avatar">
+                    <img src="https://via.placeholder.com/50?text=EJ" alt="Erica">
+                </div>
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <strong>Erica Johnson</strong> shared a job opportunity at Tech Solutions
+                    </div>
+                    <div class="notification-time">1 week ago</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Empty State Example (hidden by default) -->
+        <!-- <div class="empty-state" style="display: none;">
+            <i class="far fa-bell"></i>
+            <h3>No notifications yet</h3>
+            <p>When you get notifications, they'll appear here</p>
+        </div> -->
+    </div>
+
+    <script>
+        // Mark all as read functionality
+        document.querySelector('.mark-all-read').addEventListener('click', function() {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            
+            // Update notification badge count
+            document.querySelector('.notification-badge').textContent = '0';
+        });
+        
+        // Accept/decline connection requests
+        document.querySelectorAll('.accept-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const notification = this.closest('.notification-item');
+                notification.querySelector('.notification-text').textContent = 'Connection request accepted';
+                notification.querySelector('.notification-actions').remove();
+                notification.classList.remove('unread');
+                updateBadgeCount();
+            });
+        });
+        
+        document.querySelectorAll('.decline-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const notification = this.closest('.notification-item');
+                notification.querySelector('.notification-text').textContent = 'Connection request declined';
+                notification.querySelector('.notification-actions').remove();
+                notification.classList.remove('unread');
+                updateBadgeCount();
+            });
+        });
+        
+        // Clicking a notification marks it as read
+        document.querySelectorAll('.notification-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (this.classList.contains('unread')) {
+                    this.classList.remove('unread');
+                    updateBadgeCount();
+                }
+            });
+        });
+        
+        // Update notification badge count
+        function updateBadgeCount() {
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+            const badge = document.querySelector('.notification-badge');
+            badge.textContent = unreadCount;
+            
+            if (unreadCount === 0) {
+                badge.style.display = 'none';
+            } else {
+                badge.style.display = 'flex';
+            }
+        }
+    </script>
+</body>
+</html>
